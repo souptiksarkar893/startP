@@ -108,7 +108,7 @@ const loginUser = asyncHandler (async (req, res) => {
   }
 
   const user = await User.findOne({
-    $or: [{ email }, { userName }]
+    $or: [{ userName }, { email }]
   });
 
   if (!user) {
@@ -116,6 +116,7 @@ const loginUser = asyncHandler (async (req, res) => {
   }
 
   const isPasswordValid = await user.isPasswordCorrect(password);
+
   if (!isPasswordValid) {
     throw new ApiError(401, "Invalid user credentials");
   }
@@ -126,8 +127,7 @@ const loginUser = asyncHandler (async (req, res) => {
 
   const options = {
     httpOnly: true,
-    secure: true,
-    sameSite: "Strict", // Helps prevent CSRF
+    secure: true
   };
 
   return res
@@ -137,7 +137,9 @@ const loginUser = asyncHandler (async (req, res) => {
     .json(
       new ApiResponse(
         200,
-        { user: loggedInUser, accessToken, refreshToken },
+        { 
+          user: loggedInUser, accessToken, refreshToken 
+        },
         "User logged in successfully"
       )
     );
@@ -158,8 +160,7 @@ const logoutUser = asyncHandler (async (req, res) => {
   
   const options = {
     httpOnly: true,
-    secure: true,
-    sameSite: "Strict" 
+    secure: true
   }
 
   return res
