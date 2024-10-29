@@ -1,8 +1,8 @@
-const asyncHandler = require('../utils/asyncHandler')
-const ApiError = require('../utils/ApiError')
-const User = require('../models/user.model')
+const asyncHandler = require('../utils/asyncHandler.js')
+const ApiError = require('../utils/ApiError.js')
+const User = require('../models/user.model.js')
 const uploadOnCloudinary = require('../utils/cloudinary.js')
-const ApiResponse = require('../utils/ApiResponse')
+const ApiResponse = require('../utils/ApiResponse.js')
 
 const generateAccessAndRefreshToken = async(userId) => {
   try {
